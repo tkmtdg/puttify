@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-while IFS=, read -r filename email passphrase
+while IFS="$(echo -e '\t')" read -r filename email passphrase
 do
   if [ -n ${filename} ] && [ -n ${email} ] && [ -n ${passphrase} ]; then
     docker-compose run -d ssh ssh-keygen -t rsa -b 4096 -N ${passphrase} -C ${email} -f /data/${filename}
